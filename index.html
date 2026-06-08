@@ -141,7 +141,7 @@ nav.scrolled{background:rgba(4,21,37,.93);backdrop-filter:blur(20px);-webkit-bac
 .ba-div{position:absolute;top:0;bottom:0;width:3px;background:#fff;left:50%;transform:translateX(-50%);z-index:10;box-shadow:0 0 12px rgba(255,255,255,.6)}
 .ba-hdl{position:absolute;top:50%;left:50%;transform:translate(-50%,-50%);width:46px;height:46px;background:#fff;border-radius:50%;display:flex;align-items:center;justify-content:center;box-shadow:0 4px 20px rgba(0,0,0,.4);cursor:ew-resize;z-index:11;font-size:15px;font-weight:900;color:var(--deep)}
 .ba-hint{text-align:center;margin-top:20px;font-size:13px;color:rgba(255,255,255,.35)}
-.ba-gallery{display:grid;grid-template-columns:repeat(3,1fr);gap:18px;margin-top:40px}
+.ba-gallery{display:grid;grid-template-columns:repeat(2,1fr);gap:18px;margin-top:40px}
 .ba-gallery-card{background:rgba(10,34,58,.7);border:1px solid rgba(255,255,255,.07);border-radius:var(--r);padding:20px;text-align:center}
 .ba-pair{display:flex;align-items:center;gap:10px;margin-bottom:14px}
 .ba-thumb{flex:1;height:110px;border-radius:10px;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:6px;position:relative;font-size:36px}
@@ -255,6 +255,9 @@ footer{background:#020d18;padding:60px 0 32px;border-top:1px solid rgba(255,255,
   .ba-gallery{grid-template-columns:1fr}
   .stats-grid{grid-template-columns:repeat(2,1fr)}
   .ft-grid{grid-template-columns:1fr;gap:32px}
+}
+@media(max-width:640px){
+  .ba-gallery{grid-template-columns:1fr}
 }
 @media(max-width:640px){
   .nav-links{display:none}
@@ -419,6 +422,14 @@ footer{background:#020d18;padding:60px 0 32px;border-top:1px solid rgba(255,255,
           <div class="ba-thumb ba-thumb-after3"><img src="images/chairs-after.jpg" alt="אחרי" onerror="this.style.display='none'" onclick="openLb(this.src)"><div class="ba-thumb-lbl">אחרי</div></div>
         </div>
         <p class="ba-card-title">כיסאות אוכל — הסרת כתמים</p>
+      </div>
+      <div class="ba-gallery-card">
+        <div class="ba-pair">
+          <div class="ba-thumb ba-thumb-before2"><img src="images/main-before.jpg" alt="לפני" onerror="this.style.display='none'" onclick="openLb(this.src)"><div class="ba-thumb-lbl">לפני</div></div>
+          <div class="ba-arrow">→</div>
+          <div class="ba-thumb ba-thumb-after2"><img src="images/main-after.jpg" alt="אחרי" onerror="this.style.display='none'" onclick="openLb(this.src)"><div class="ba-thumb-lbl">אחרי</div></div>
+        </div>
+        <p class="ba-card-title">ספה כחולה — ניקוי עמוק</p>
       </div>
     </div>
     <p class="ba-photo-note">📸 תמונות אמיתיות מהעבודות שלנו</p>
