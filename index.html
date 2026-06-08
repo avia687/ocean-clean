@@ -6,6 +6,8 @@
 <title>בא אוקינוס וניקה את הכול | ניקוי ספות מקצועי</title>
 <meta name="description" content="ניקוי ספות מקצועי, יסודי ואמין. 3 שנות ניסיון, מאות לקוחות מרוצים. ניקוי ריפודים, מזרנים ושטיחים עם ציוד מתקדם.">
 <meta name="keywords" content="ניקוי ספות, ניקוי ספות מקצועי, ניקוי ספות בבית, ניקוי ריפודים, ניקוי מזרנים, ניקוי שטיחים">
+<meta name="copyright" content="© 2026 בא אוקינוס וניקה את הכול. כל הזכויות שמורות.">
+<meta name="robots" content="noarchive">
 <meta property="og:title" content="בא אוקינוס וניקה את הכול | ניקוי ספות מקצועי">
 <meta property="og:description" content="ניקוי ספות מקצועי ואמין — 3 שנות ניסיון, מאות לקוחות מרוצים">
 <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -13,6 +15,8 @@
 <link href="https://fonts.googleapis.com/css2?family=Heebo:wght@300;400;500;600;700;800;900&display=swap" rel="stylesheet">
 <style>
 *,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+img{pointer-events:none;-webkit-user-drag:none;user-drag:none}
+body{-webkit-user-select:none;-moz-user-select:none;user-select:none}
 :root{
   --deep:#041525;--dark:#071e34;--navy:#0a2a47;
   --blue:#1055a0;--blue-l:#1a6fbd;
@@ -628,6 +632,18 @@ function toggleFaq(btn){
     c.appendChild(p);
   }
 })();
+
+// Copyright protection
+document.addEventListener('contextmenu', e => e.preventDefault());
+document.addEventListener('selectstart', e => e.preventDefault());
+document.addEventListener('dragstart', e => { if(e.target.tagName==='IMG') e.preventDefault(); });
+document.addEventListener('keydown', e => {
+  if(
+    (e.ctrlKey && ['s','u','a','c'].includes(e.key.toLowerCase())) ||
+    e.key==='F12' ||
+    (e.ctrlKey && e.shiftKey && ['i','j','c'].includes(e.key.toLowerCase()))
+  ) e.preventDefault();
+});
 </script>
 </body>
 </html>
