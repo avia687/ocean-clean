@@ -16,6 +16,12 @@
 <style>
 *,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
 img{pointer-events:none;-webkit-user-drag:none;user-drag:none}
+.ba-thumb img,.ba-b img,.ba-a img{pointer-events:auto;cursor:zoom-in}
+.lb{display:none;position:fixed;inset:0;background:rgba(0,0,0,.93);z-index:9999;align-items:center;justify-content:center;cursor:zoom-out}
+.lb.open{display:flex}
+.lb img{max-width:92vw;max-height:90vh;object-fit:contain;border-radius:10px;box-shadow:0 20px 60px rgba(0,0,0,.8);pointer-events:none;cursor:default}
+.lb-close{position:absolute;top:18px;right:18px;color:#fff;font-size:24px;font-weight:700;width:44px;height:44px;display:flex;align-items:center;justify-content:center;background:rgba(255,255,255,.12);border-radius:50%;cursor:pointer;transition:background .2s;pointer-events:auto}
+.lb-close:hover{background:rgba(255,255,255,.28)}
 body{-webkit-user-select:none;-moz-user-select:none;user-select:none}
 :root{
   --deep:#041525;--dark:#071e34;--navy:#0a2a47;
@@ -65,11 +71,13 @@ nav.scrolled{background:rgba(4,21,37,.93);backdrop-filter:blur(20px);-webkit-bac
 
 /* HERO */
 .hero{min-height:100vh;position:relative;display:flex;align-items:center;overflow:hidden;padding-top:72px}
-.hero-bg{position:absolute;inset:0;background:radial-gradient(ellipse at 20% 50%,rgba(26,111,189,.32) 0%,transparent 60%),radial-gradient(ellipse at 80% 20%,rgba(0,196,216,.14) 0%,transparent 50%),linear-gradient(180deg,var(--deep) 0%,#051f38 100%)}
-.hero-waves{position:absolute;bottom:0;left:0;right:0;height:180px;overflow:hidden}
+.hero-photo{position:absolute;inset:0;z-index:0}
+.hero-photo img{width:100%;height:100%;object-fit:cover;object-position:center;pointer-events:none}
+.hero-bg{position:absolute;inset:0;z-index:1;background:radial-gradient(ellipse at 20% 50%,rgba(26,111,189,.5) 0%,transparent 60%),radial-gradient(ellipse at 80% 20%,rgba(0,196,216,.2) 0%,transparent 50%),linear-gradient(180deg,rgba(4,21,37,.82) 0%,rgba(5,31,56,.88) 100%)}
+.hero-waves{position:absolute;bottom:0;left:0;right:0;height:180px;overflow:hidden;z-index:2}
 .w1{animation:wave 9s linear infinite;fill:rgba(0,196,216,.06)}
 .w2{animation:wave 14s linear infinite reverse;fill:rgba(26,111,189,.08)}
-.particles{position:absolute;inset:0;overflow:hidden}
+.particles{position:absolute;inset:0;overflow:hidden;z-index:2}
 .dot{position:absolute;border-radius:50%;background:var(--cyan);opacity:.35;animation:float var(--d,6s) ease-in-out infinite;animation-delay:var(--dl,0s)}
 .hero-content{position:relative;z-index:2;max-width:760px;animation:fadeUp .9s ease both}
 .hero-badge{display:inline-flex;align-items:center;gap:8px;background:rgba(0,196,216,.1);border:1px solid rgba(0,196,216,.22);padding:8px 18px;border-radius:50px;font-size:13px;font-weight:600;color:var(--cyan-l);margin-bottom:28px}
@@ -320,6 +328,7 @@ footer{background:#020d18;padding:60px 0 32px;border-top:1px solid rgba(255,255,
 
 <!-- HERO -->
 <section class="hero">
+  <div class="hero-photo"><img src="images/main-after.jpg" alt="ספה נקייה"></div>
   <div class="hero-bg"></div>
   <div class="particles" id="pts"></div>
   <svg class="hero-waves" viewBox="0 0 1440 180" preserveAspectRatio="none" xmlns="http://www.w3.org/2000/svg">
@@ -377,8 +386,8 @@ footer{background:#020d18;padding:60px 0 32px;border-top:1px solid rgba(255,255,
     <div class="sh reveal"><div class="s-tag">תוצאות אמיתיות</div><h2 class="s-title">לפני <span>ואחרי</span></h2><p class="s-desc">גררו את המחוון כדי לראות את ההבדל המדהים</p></div>
     <div class="ba-wrap reveal">
       <div class="ba-slider" id="baS">
-        <div class="ba-b"><img src="images/main-before.jpg" alt="לפני הניקוי" onerror="this.style.display='none'"><div class="ba-lbl ba-lbl-b">לפני 🙁</div></div>
-        <div class="ba-a" id="baA"><img src="images/main-after.jpg" alt="אחרי הניקוי" onerror="this.style.display='none'"><div class="ba-lbl ba-lbl-a">אחרי ✨</div></div>
+        <div class="ba-b"><img src="images/main-before.jpg" alt="לפני הניקוי" onerror="this.style.display='none'" onclick="openLb(this.src)"><div class="ba-lbl ba-lbl-b">לפני 🙁</div></div>
+        <div class="ba-a" id="baA"><img src="images/main-after.jpg" alt="אחרי הניקוי" onerror="this.style.display='none'" onclick="openLb(this.src)"><div class="ba-lbl ba-lbl-a">אחרי ✨</div></div>
         <div class="ba-div" id="baDiv"></div>
         <div class="ba-hdl" id="baHdl">↔</div>
       </div>
@@ -389,25 +398,25 @@ footer{background:#020d18;padding:60px 0 32px;border-top:1px solid rgba(255,255,
     <div class="ba-gallery reveal">
       <div class="ba-gallery-card">
         <div class="ba-pair">
-          <div class="ba-thumb ba-thumb-before"><img src="images/sofa-beige-before.jpg" alt="לפני" onerror="this.style.display='none'"><div class="ba-thumb-lbl">לפני</div></div>
+          <div class="ba-thumb ba-thumb-before"><img src="images/sofa-beige-before.jpg" alt="לפני" onerror="this.style.display='none'" onclick="openLb(this.src)"><div class="ba-thumb-lbl">לפני</div></div>
           <div class="ba-arrow">→</div>
-          <div class="ba-thumb ba-thumb-after"><img src="images/sofa-beige-after.jpg" alt="אחרי" onerror="this.style.display='none'"><div class="ba-thumb-lbl">אחרי</div></div>
+          <div class="ba-thumb ba-thumb-after"><img src="images/sofa-beige-after.jpg" alt="אחרי" onerror="this.style.display='none'" onclick="openLb(this.src)"><div class="ba-thumb-lbl">אחרי</div></div>
         </div>
         <p class="ba-card-title">ספה מיקרופייבר בז' — ניקוי עמוק</p>
       </div>
       <div class="ba-gallery-card">
         <div class="ba-pair">
-          <div class="ba-thumb ba-thumb-before2"><img src="images/car-before.jpg" alt="לפני" onerror="this.style.display='none'"><div class="ba-thumb-lbl">לפני</div></div>
+          <div class="ba-thumb ba-thumb-before2"><img src="images/car-before.jpg" alt="לפני" onerror="this.style.display='none'" onclick="openLb(this.src)"><div class="ba-thumb-lbl">לפני</div></div>
           <div class="ba-arrow">→</div>
-          <div class="ba-thumb ba-thumb-after2"><img src="images/car-after.jpg" alt="אחרי" onerror="this.style.display='none'"><div class="ba-thumb-lbl">אחרי</div></div>
+          <div class="ba-thumb ba-thumb-after2"><img src="images/car-after.jpg" alt="אחרי" onerror="this.style.display='none'" onclick="openLb(this.src)"><div class="ba-thumb-lbl">אחרי</div></div>
         </div>
         <p class="ba-card-title">מושבי רכב — ניקוי וחיטוי</p>
       </div>
       <div class="ba-gallery-card">
         <div class="ba-pair">
-          <div class="ba-thumb ba-thumb-before3"><img src="images/chairs-before.jpg" alt="לפני" onerror="this.style.display='none'"><div class="ba-thumb-lbl">לפני</div></div>
+          <div class="ba-thumb ba-thumb-before3"><img src="images/chairs-before.jpg" alt="לפני" onerror="this.style.display='none'" onclick="openLb(this.src)"><div class="ba-thumb-lbl">לפני</div></div>
           <div class="ba-arrow">→</div>
-          <div class="ba-thumb ba-thumb-after3"><img src="images/chairs-after.jpg" alt="אחרי" onerror="this.style.display='none'"><div class="ba-thumb-lbl">אחרי</div></div>
+          <div class="ba-thumb ba-thumb-after3"><img src="images/chairs-after.jpg" alt="אחרי" onerror="this.style.display='none'" onclick="openLb(this.src)"><div class="ba-thumb-lbl">אחרי</div></div>
         </div>
         <p class="ba-card-title">כיסאות אוכל — הסרת כתמים</p>
       </div>
@@ -528,6 +537,12 @@ footer{background:#020d18;padding:60px 0 32px;border-top:1px solid rgba(255,255,
   </div>
 </footer>
 
+<!-- LIGHTBOX -->
+<div class="lb" id="lb" onclick="closeLb(event)">
+  <span class="lb-close" onclick="document.getElementById('lb').classList.remove('open')">✕</span>
+  <img id="lb-img" src="" alt="תמונה מוגדלת">
+</div>
+
 <!-- FLOATING WA -->
 <div class="wa-float">
   <div class="wa-pulse"></div>
@@ -632,6 +647,20 @@ function toggleFaq(btn){
     c.appendChild(p);
   }
 })();
+
+// Lightbox
+function openLb(src){
+  document.getElementById('lb-img').src=src;
+  document.getElementById('lb').classList.add('open');
+  document.body.style.overflow='hidden';
+}
+function closeLb(e){
+  if(e.target.id==='lb'){
+    document.getElementById('lb').classList.remove('open');
+    document.body.style.overflow='';
+  }
+}
+document.addEventListener('keydown',e=>{if(e.key==='Escape'){document.getElementById('lb').classList.remove('open');document.body.style.overflow='';}});
 
 // Copyright protection
 document.addEventListener('contextmenu', e => e.preventDefault());
