@@ -567,9 +567,18 @@ const WA_TEXT = encodeURIComponent('שלום! אשמח לקבל הצעת מחי�
 
 function openWA(e){
   if(e) e.preventDefault();
+  fetch('https://api.countapi.xyz/hit/ocean-clean-aviya/lead').catch(()=>{});
   window.open(`https://wa.me/${RAMI}?text=${WA_TEXT}`,'_blank');
   setTimeout(()=>window.open(`https://wa.me/${AVIYA}?text=${WA_TEXT}`,'_blank'),700);
 }
+
+// Track page view
+fetch('https://api.countapi.xyz/hit/ocean-clean-aviya/pageview').catch(()=>{});
+
+// Track phone clicks
+document.querySelectorAll('a[href^="tel:"]').forEach(a=>{
+  a.addEventListener('click',()=>fetch('https://api.countapi.xyz/hit/ocean-clean-aviya/phone').catch(()=>{}));
+});
 
 // Sticky nav
 window.addEventListener('scroll',()=>{
